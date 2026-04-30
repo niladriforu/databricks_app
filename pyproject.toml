@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "databricks-app"
+version = "0.1.0"
+description = "Quick Poetry scaffold for Databricks app"
+authors = ["niladri <niladri@example.com>"]
+readme = "README.md"
+packages = [{ include = "databricks_app", from = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.8.0"]
+build-backend = "poetry.core.masonry.api"

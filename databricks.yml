@@ -18,8 +18,8 @@ resources:
     run_ingest_queries:
       name: run_ingest_queries
       tasks:
-        - task_key: ingest_join
+        - task_key: ingest_data
           sql_task:
             warehouse_id: ${var.warehouse_id}
             file:
-              path: ./sql/ingest_join.sql
+              path: ./src/main.py

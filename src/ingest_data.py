@@ -26,19 +26,21 @@ def _apply_column_renames(df, renames: dict[str, str] | None, *, context: str):
     if not renames:
         return df
     out_df = df
-    for old,new in renames.items():
+    for old, new in renames.items():
         if old == new:
             continue
         if old not in out_df.columns:
-        '''it means your column of your table and the column mentioned here are not the same
-        which should not happen.
-        '''
+            """
+            It means your column of your table and the column mentioned here are not the same
+            which should not happen.
+            """
             raise ValueError(
                 f"{context}: rename source column {old!r} not found; this should not happen; "
                 f"columns  you have: {sorted(out_df.columns)}"
             )
         out_df = out_df.withColumnRenamed(old, new)
     return out_df
+
 
 def _table_from_ingest_entry(entry: dict[str, Any], *, context: str):
     fqn = entry["fqn"]
@@ -113,18 +115,6 @@ def build_denormalized_dataframe(cfg: dict[str, Any] | None = None):
 
 
 def read_data():
-    query = """
-    SELECT * 
-    FROM samples.bakehouse.sales_transactions a
-    INNER JOIN samples.bakehouse.sales_customers b ON a.customerID = b.customerID
-    INNER JOIN samples.bakehouse.sales_franchises c ON a.franchiseID = c.franchiseID
-    INNER JOIN samples.bakehouse.media_gold_reviews_chunked d ON c.franchiseID = d.franchiseID
-    INNER JOIN samples.bakehouse.media_customer_reviews e ON e.franchiseID = c.franchiseID
-    """
-
-    # Execute the query and load results into a DataFrame
-    # df = spark.sql(query)
-
     denormalized_df = build_denormalized_dataframe()
     denormalized_df.limit(10).show(truncate=False)
 

@@ -43,13 +43,12 @@ def validate_mart_dataframe(df, expectations_yaml: str | Path) -> None:
     failures: list[str] = []
     for col in not_null:
         result = ge_df.expect_column_values_to_not_be_null(col)
-        print(f'Not null validation result : {result}')
-        if not result.get(success, True):
+        if not result.get("success", True):
             failures.append(str(result))
 
     for col in unique:
         result = ge_df.expect_column_values_to_be_unique(col)
-        print(f'Unique validation result : {result}')
+        print(f"Unique validation result : {result}")
         if not result.get("success", True):
             failures.append(str(result))
 
@@ -58,11 +57,9 @@ def validate_mart_dataframe(df, expectations_yaml: str | Path) -> None:
             min_value=rmin if rmin is not None else None,
             max_value=rmax if rmax is not None else None,
         )
-        print(f'Row bound result : {result}')
+        print(f"Row bound result : {result}")
         if not result.get("success", True):
             failures.append(str(result))
 
     if failures:
-        raise RuntimeError(
-            "Data quality expectations failed:\n" + "\n".join(failures[:20])
-        )
+        raise RuntimeError("Data quality expectations failed:\n" + "\n".join(failures[:20]))

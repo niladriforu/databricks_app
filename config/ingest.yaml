@@ -3,7 +3,7 @@
 
 sales_transactions:
   fqn: samples.bakehouse.sales_transactions
-  column_renames: 
+  column_renames:
     datetime:trans_timestamp
 
 

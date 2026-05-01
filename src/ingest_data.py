@@ -1,5 +1,10 @@
 # PySpark boilerplate to execute SQL query and load into DataFrame
+from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
+
+# Notebooks define `spark`; spark_python_task jobs do not — get the session explicitly.
+spark = SparkSession.builder.getOrCreate()
+
 
 def read_data():
     query = """
@@ -65,7 +70,7 @@ def read_data():
         how="left"
     )
 
-    display(denormalized_df.limit(10))
+    denormalized_df.limit(10).show(truncate=False)
 
     filtered_df = denormalized_df.filter(col("franchise_name").isNotNull())
     count = filtered_df.count()

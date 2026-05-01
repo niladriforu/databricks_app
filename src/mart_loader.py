@@ -4,9 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-
-def _repo_root() -> Path:
-    return Path(__file__).resolve().parent.parent
+from paths import repo_root
 
 
 def target_fqn(catalog: str, schema: str, table: str) -> str:
@@ -32,7 +30,7 @@ def ensure_table(spark, ddl_path: str | Path, catalog: str, schema: str, table: 
 def apply_ddl(spark, ddl_path: str | Path, catalog: str, schema: str, table: str) -> None:
     path = Path(ddl_path)
     if not path.is_absolute():
-        path = _repo_root() / path
+        path = repo_root() / path
     ddl = path.read_text(encoding="utf-8")
     fqn = target_fqn(catalog, schema, table)
     ddl = ddl.replace("{{TARGET_FQN}}", fqn)

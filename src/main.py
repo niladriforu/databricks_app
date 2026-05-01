@@ -2,22 +2,17 @@
 
 from __future__ import annotations
 
-from pathlib import Path
-
 import yaml
 from pyspark.sql import SparkSession
 
 from expectations_runner import validate_mart_dataframe
 from ingest_data import build_mart_dataframe
 from mart_loader import ensure_table, merge_into_delta_table, select_mart_columns
-
-
-def _repo_root() -> Path:
-    return Path(__file__).resolve().parent.parent
+from paths import repo_root
 
 
 def load_pipeline_config() -> dict:
-    path = _repo_root() / "config" / "pipeline.yaml"
+    path = repo_root() / "config" / "pipeline.yaml"
     with path.open(encoding="utf-8") as f:
         return yaml.safe_load(f)
 

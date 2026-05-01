@@ -31,7 +31,7 @@ Add these **repository secrets** (`Settings → Secrets and variables → Action
 
 - `DATABRICKS_HOST` — workspace URL (example: `https://dbc-xxxx.cloud.databricks.com`)
 - `DATABRICKS_TOKEN` — personal access token (or your org’s preferred CI auth)
-- `BUNDLE_VAR_CLUSTER_ID` — existing cluster id (passed as `BUNDLE_VAR_cluster_id` in the workflow)
+- `BUNDLE_VAR_WAREHOUSE_ID` — the workflow maps this secret to bundle variable `cluster_id` (`BUNDLE_VAR_cluster_id`). The **value must be a cluster id** (Compute → cluster), not a SQL warehouse id, or the job will still fail.
 
 The workflow runs:
 

@@ -1,0 +1,41 @@
+# Column renames applied after spark.table(...) and before joins.
+# Keys under column_renames are source Spark column names; values are new names.
+
+sales_transactions:
+  fqn: samples.bakehouse.sales_transactions
+  column_renames: 
+    datetime:trans_timestamp
+
+
+
+sales_suppliers:
+  fqn: samples.bakehouse.sales_suppliers
+  column_renames:
+    name: supplier_name
+
+sales_customers:
+  fqn: samples.bakehouse.sales_customers
+  column_renames:
+    name: customer_name
+
+sales_franchises:
+  fqn: samples.bakehouse.sales_franchises
+  column_renames:
+    name: franchise_name
+    city: franchise_city
+    district: franchise_district
+    zipcode: franchise_zipcode
+    country: franchise_country
+    size: franchise_size
+    longitude: franchise_longitude
+    latitude: franchise_latitude
+
+media_gold_reviews_chunked:
+  fqn: samples.bakehouse.media_gold_reviews_chunked
+  column_renames:
+    review_date: chunked_review_date
+    review_uri: chunked_review_uri
+
+media_customer_reviews:
+  fqn: samples.bakehouse.media_customer_reviews
+  column_renames: {}

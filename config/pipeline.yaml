@@ -1,0 +1,49 @@
+# Target Delta table (Unity Catalog or hive_metastore). Edit for your workspace.
+target:
+  catalog: main
+  schema: default
+  table: denormalized_sales_mart
+
+merge_key: transactionID
+
+# Columns written to the mart (must match sql/denormalized_sales_mart.ddl.sql column order and names).
+mart_columns:
+  - transactionID
+  - customerID
+  - franchiseID
+  - dateTime
+  - product
+  - quantity
+  - unitPrice
+  - totalPrice
+  - paymentMethod
+  - cardNumber
+  - customer_name
+  - email_address
+  - phone_number
+  - address
+  - city
+  - state
+  - postal_zip_code
+  - country
+  - continent
+  - franchise_name
+  - franchise_city
+  - franchise_district
+  - franchise_zipcode
+  - franchise_country
+  - franchise_size
+  - franchise_longitude
+  - franchise_latitude
+  - supplierID
+  - gold_review_date
+  - chunked_text
+  - chunk_id
+  - chunk_review_uri
+  - review
+  - customer_review_date
+  - review_new_id
+
+paths:
+  ddl: sql/denormalized_sales_mart.ddl.sql
+  expectations: config/expectations.yaml

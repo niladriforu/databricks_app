@@ -8,9 +8,14 @@ packages = [{ include = "databricks_app", from = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.14"
+pyyaml = "^6.0"
+# PyPI has no stable 1.x yet (only 1.0.0a*); >=1.0 fails unless pip install --pre
+great-expectations = ">=0.18.22,<0.19"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
+# Local / IDE runs only — Databricks runtimes already ship PySpark; do not add to bundle deps.
+pyspark = ">=3.5.0"
 
 [build-system]
 requires = ["poetry-core>=1.8.0"]

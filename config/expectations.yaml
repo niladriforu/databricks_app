@@ -1,0 +1,14 @@
+# Data quality rules run against the mart DataFrame before MERGE (Great Expectations on Spark).
+# Use exact Spark column names (case-sensitive).
+
+not_null_columns:
+  - transactionID
+  - customerID
+  - franchiseID
+
+unique_columns:
+  - transactionID
+
+row_count:
+  min: 1
+  # max: 50000000   # optional upper bound

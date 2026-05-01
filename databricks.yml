@@ -22,6 +22,6 @@ resources:
       name: run_ingest_queries
       tasks:
         - task_key: ingest_data
-          existing_cluster_id: ${var.cluster_id}
+          existing_cluster_id: ${var.warehouse_id}
           spark_python_task:
             python_file: ./src/main.py

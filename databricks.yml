@@ -19,5 +19,9 @@ resources:
       name: run_ingest_queries
       tasks:
         - task_key: ingest_data
+          new_cluster:
+            spark_version: "auto:latest"
+            num_workers: 0
+            data_security_mode: USER_ISOLATION
           spark_python_task:
             python_file: ./src/main.py

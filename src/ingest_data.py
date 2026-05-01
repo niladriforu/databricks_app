@@ -1,23 +1,20 @@
 # PySpark boilerplate to execute SQL query and load into DataFrame
 from __future__ import annotations
 
-from pathlib import Path
 from typing import Any
 
 import yaml
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
 
+from paths import repo_root
+
 # Notebooks define `spark`; spark_python_task jobs do not — get the session explicitly.
 spark = SparkSession.builder.getOrCreate()
 
 
-def _repo_root() -> Path:
-    return Path(__file__).resolve().parent.parent
-
-
 def _load_ingest_config() -> dict[str, Any]:
-    path = _repo_root() / "config" / "ingest.yaml"
+    path = repo_root() / "config" / "ingest.yaml"
     with path.open(encoding="utf-8") as f:
         return yaml.safe_load(f) or {}
 

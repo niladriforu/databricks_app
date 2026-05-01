@@ -7,9 +7,7 @@ from typing import Any
 
 import yaml
 
-
-def _repo_root() -> Path:
-    return Path(__file__).resolve().parent.parent
+from paths import repo_root
 
 
 def load_yaml(path: Path) -> dict[str, Any]:
@@ -25,7 +23,7 @@ def validate_mart_dataframe(df, expectations_yaml: str | Path) -> None:
     """
     path = Path(expectations_yaml)
     if not path.is_absolute():
-        path = _repo_root() / path
+        path = repo_root() / path
     cfg = load_yaml(path)
 
     not_null = cfg.get("not_null_columns") or []

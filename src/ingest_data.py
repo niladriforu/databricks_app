@@ -26,7 +26,7 @@ def _apply_column_renames(df, renames: dict[str, str] | None, *, context: str):
     if not renames:
         return df
     out_df = df
-    for old,new in renames.items():
+    for old, new in renames.items():
         if old == new:
             continue
         if old not in out_df.columns:
@@ -40,6 +40,7 @@ def _apply_column_renames(df, renames: dict[str, str] | None, *, context: str):
             )
         out_df = out_df.withColumnRenamed(old, new)
     return out_df
+
 
 def _table_from_ingest_entry(entry: dict[str, Any], *, context: str):
     fqn = entry["fqn"]
@@ -115,7 +116,7 @@ def build_denormalized_dataframe(cfg: dict[str, Any] | None = None):
 
 def read_data():
     query = """
-    SELECT * 
+    SELECT *
     FROM samples.bakehouse.sales_transactions a
     INNER JOIN samples.bakehouse.sales_customers b ON a.customerID = b.customerID
     INNER JOIN samples.bakehouse.sales_franchises c ON a.franchiseID = c.franchiseID

@@ -43,11 +43,15 @@ def apply_ddl(spark, ddl_path: str | Path, catalog: str, schema: str, table: str
         if table_exists(spark, catalog, schema, table):
             return True
         else:
-            raise ValueError(f"DDL file {path} did not create table {table_fqn_plain(catalog, schema, table)}")
+            raise ValueError(
+                f"DDL file {path} did not create table {table_fqn_plain(catalog, schema, table)}"
+            )
             return False
 
 
-def merge_into_delta_table(spark, df, catalog: str, schema: str, table: str, merge_key: str) -> None:
+def merge_into_delta_table(
+    spark, df, catalog: str, schema: str, table: str, merge_key: str
+) -> None:
     fqn = target_fqn(catalog, schema, table)
     tmp = "src_denormalized_mart_merge"
     df.createOrReplaceTempView(tmp)
@@ -63,7 +67,7 @@ def merge_into_delta_table(spark, df, catalog: str, schema: str, table: str, mer
 
 
 def select_mart_columns(df, columns: list[str]):
-    missing = [ c for c in columns if c not in df.columns]
+    missing = [c for c in columns if c not in df.columns]
     if missing:
         raise ValueError(
             "Mart columns missing from DataFrame (update pipeline.yaml / DDL): "

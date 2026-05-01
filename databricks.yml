@@ -8,8 +8,8 @@ bundle:
   name: databricks_app
 
 variables:
-  warehouse_id:
-    description: Existing cluster ID (Compute → cluster page; long numeric id in URL)
+  cluster_id:
+    description: Existing cluster ID (Compute → cluster page; id in URL or UI). Not a SQL warehouse id.
 
 targets:
   dev:
@@ -22,6 +22,6 @@ resources:
       name: run_ingest_queries
       tasks:
         - task_key: ingest_data
-          existing_cluster_id: ${var.warehouse_id}
+          existing_cluster_id: ${var.cluster_id}
           spark_python_task:
             python_file: ./src/main.py

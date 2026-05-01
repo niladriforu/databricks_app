@@ -31,7 +31,7 @@ def _apply_column_renames(df, renames: dict[str, str] | None, *, context: str):
             continue
         if old not in out_df.columns:
             """
-            it means your column of your table and the column mentioned here are not the same
+            It means your column of your table and the column mentioned here are not the same
             which should not happen.
             """
             raise ValueError(
@@ -115,18 +115,6 @@ def build_denormalized_dataframe(cfg: dict[str, Any] | None = None):
 
 
 def read_data():
-    query = """
-    SELECT *
-    FROM samples.bakehouse.sales_transactions a
-    INNER JOIN samples.bakehouse.sales_customers b ON a.customerID = b.customerID
-    INNER JOIN samples.bakehouse.sales_franchises c ON a.franchiseID = c.franchiseID
-    INNER JOIN samples.bakehouse.media_gold_reviews_chunked d ON c.franchiseID = d.franchiseID
-    INNER JOIN samples.bakehouse.media_customer_reviews e ON e.franchiseID = c.franchiseID
-    """
-
-    # Execute the query and load results into a DataFrame
-    # df = spark.sql(query)
-
     denormalized_df = build_denormalized_dataframe()
     denormalized_df.limit(10).show(truncate=False)
 

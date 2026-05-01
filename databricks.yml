@@ -25,4 +25,5 @@ resources:
       environments:
         - environment_key: default
           spec:
+            environment_version: '5'
             dependencies: []

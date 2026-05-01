@@ -16,7 +16,7 @@ jobs:
     env:
       DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
       DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-      BUNDLE_VAR_warehouse_id: ${{ secrets.BUNDLE_VAR_WAREHOUSE_ID }}
+      BUNDLE_VAR_cluster_id: ${{ secrets.BUNDLE_VAR_CLUSTER_ID }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4

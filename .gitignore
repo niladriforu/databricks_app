@@ -1,3 +1,4 @@
+.env
 __pycache__/
 *.py[cod]
 *.so
@@ -7,3 +8,4 @@ __pycache__/
 .venv/
 venv/
 poetry.lock
+.databricks/

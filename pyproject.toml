@@ -2,7 +2,7 @@
 name = "databricks-app"
 version = "0.1.0"
 description = "Quick Poetry scaffold for Databricks app"
-authors = ["niladri <niladri@example.com>"]
+authors = ["niladriforu@gmail.com"]
 readme = "README.md"
 packages = [{ include = "databricks_app", from = "src" }]
 

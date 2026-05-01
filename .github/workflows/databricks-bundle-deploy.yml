@@ -21,8 +21,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # v0.297.2+ fixes Terraform checksum verify: openpgp key expired (see databricks/cli#5022)
       - name: Install Databricks CLI
-        uses: databricks/setup-cli@v0.296.0
+        uses: databricks/setup-cli@v0.299.0
 
       - name: Show CLI version
         run: databricks -v

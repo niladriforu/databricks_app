@@ -69,5 +69,5 @@ def read_data():
 
     filtered_df = denormalized_df.filter(col("franchise_name").isNotNull())
     count = filtered_df.count()
-    print(f"Number of rows in the filtered dataframe: {count}")
+    print(f"Number of rows in the filtered frame: {count}")
     return count

@@ -1,12 +1,15 @@
 # Declarative Automation Bundle (Databricks Asset Bundle).
 # Docs: https://docs.databricks.com/en/dev-tools/bundles/index.html
+#
+# Uses an existing cluster (no job_clusters / new_cluster) for accounts that
+# cannot create clusters. Copy a cluster ID from Compute → your cluster → URL or header.
 
 bundle:
   name: databricks_app
 
 variables:
-  warehouse_id:
-    description: SQL warehouse ID (from SQL Warehouses → your warehouse → Overview)
+  cluster_id:
+    description: Existing cluster ID (Compute → cluster page; long numeric id in URL)
 
 targets:
   dev:
@@ -19,7 +22,6 @@ resources:
       name: run_ingest_queries
       tasks:
         - task_key: ingest_data
-          sql_task:
-            warehouse_id: ${var.warehouse_id}
-            file:
-              path: ./src/main.py
+          existing_cluster_id: ${var.cluster_id}
+          spark_python_task:
+            python_file: ./src/main.py

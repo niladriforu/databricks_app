@@ -30,9 +30,10 @@ def _apply_column_renames(df, renames: dict[str, str] | None, *, context: str):
         if old == new:
             continue
         if old not in out_df.columns:
-        '''it means your column of your table and the column mentioned here are not the same
-        which should not happen.
-        '''
+            """
+            it means your column of your table and the column mentioned here are not the same
+            which should not happen.
+            """
             raise ValueError(
                 f"{context}: rename source column {old!r} not found; this should not happen; "
                 f"columns  you have: {sorted(out_df.columns)}"

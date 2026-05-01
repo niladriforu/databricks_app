@@ -16,8 +16,6 @@ jobs:
     env:
       DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
       DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-      # Bundle var is cluster_id → env must be BUNDLE_VAR_cluster_id. Repo secret may keep legacy name.
-      BUNDLE_VAR_cluster_id: ${{ secrets.BUNDLE_VAR_WAREHOUSE_ID }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4

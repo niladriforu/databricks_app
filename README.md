@@ -4,24 +4,27 @@ Quick Python project scaffold managed with Poetry.
 
 ## Create a Databricks job (bundle)
 
-This repo includes `databricks.yml` (Databricks Asset Bundle) with a **`spark_python_task`** that runs `src/main.py` on an **existing cluster** (no `new_cluster` / job cluster). That fits personal accounts that are not allowed to create clusters but can attach jobs to a cluster that already exists.
+This repo includes `databricks.yml` with a **`spark_python_task`** that runs `src/main.py` on **serverless compute for workflows** (`environment_key` + `environments`). You do **not** need a cluster id or permission to create classic clusters.
+
+Docs: [Run jobs with serverless compute](https://docs.databricks.com/en/workflows/jobs/run-serverless-jobs.html).
+
+### Serverless in the notebook UI vs jobs
+
+When you use **General Compute → Serverless** in a notebook, that is **interactive** serverless. Databricks spins compute up and down per session; there is **no stable cluster id** you can copy and reuse as `existing_cluster_id` on a job. Sometimes `spark.conf.get("spark.databricks.clusterUsageTags.clusterId")` shows an id for the current run, but it is **not** the same as attaching a classic all-purpose cluster to a job, and it will not work reliably for `existing_cluster_id`.
+
+For **Jobs**, serverless is configured with **`environment_key`** and job-level **`environments`** (as in this bundle), not with a warehouse id or classic cluster id.
 
 1. Install the Databricks CLI (outside Poetry): follow Databricks docs for your OS.
 2. Export auth:
    - `export DATABRICKS_HOST="https://<your-workspace-url>"`
    - `export DATABRICKS_TOKEN="<your-pat-token>"`
-3. Set the cluster id (from **Compute** → open your cluster → id in the URL or cluster details):
-   - `export BUNDLE_VAR_cluster_id="<cluster-id>"`, or
-   - `databricks bundle deploy --var="cluster_id=<cluster-id>"`
-4. Deploy + run:
+3. Deploy + run:
    - `databricks bundle deploy`
    - `databricks bundle run run_ingest_queries`
 
-The cluster must be **running** (or your job policy must allow starting it) and your user must have **Can attach to** (or equivalent) on that cluster.
+If you need extra Python packages on serverless, add them under `environments[].spec.dependencies` in `databricks.yml` (see [bundle examples](https://docs.databricks.com/aws/en/dev-tools/bundles/examples)).
 
-If you have **no interactive cluster at all** (SQL warehouse only), you cannot run this PySpark entrypoint as-is; use a **`sql_task`** against `sql/ingest_join.sql` and a warehouse instead (different job shape than this bundle’s default).
-
-Sample SQL: `sql/ingest_join.sql`.
+For **SQL only** (warehouse), use a **`sql_task`** and `sql/ingest_join.sql` instead of this Python job.
 
 ## Deploy from GitHub Actions
 
@@ -31,7 +34,6 @@ Add these **repository secrets** (`Settings → Secrets and variables → Action
 
 - `DATABRICKS_HOST` — workspace URL (example: `https://dbc-xxxx.cloud.databricks.com`)
 - `DATABRICKS_TOKEN` — personal access token (or your org’s preferred CI auth)
-- `BUNDLE_VAR_WAREHOUSE_ID` — the workflow maps this secret to bundle variable `cluster_id` (`BUNDLE_VAR_cluster_id`). The **value must be a cluster id** (Compute → cluster), not a SQL warehouse id, or the job will still fail.
 
 The workflow runs:
 

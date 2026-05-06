@@ -68,13 +68,13 @@ def _core_denormalized_through_suppliers(cfg: dict[str, Any] | None = None):
 
     temp_df1 = sales_transactions_df.join(
         sales_customers_df,
-        sales_transactions_df.customerID == sales_customers_df.customerID,
+        on="customerID",
         how="left",
     )
     temp_df2 = temp_df1.join(sales_franchises_df, on="franchiseID", how="left")
     return temp_df2.join(
         sales_suppliers_df,
-        temp_df2.supplierID == sales_suppliers_df.supplierID,
+        on="supplierID",
         how="left",
     )
 

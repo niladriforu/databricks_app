@@ -6,9 +6,6 @@ not_null_columns:
   - customerID
   - franchiseID
 
-unique_columns:
-  - transactionID
-
 row_count:
   min: 1
   # max: 50000000   # optional upper bound

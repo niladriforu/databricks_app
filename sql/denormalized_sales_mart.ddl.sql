@@ -37,4 +37,5 @@ CREATE TABLE IF NOT EXISTS {{TARGET_FQN}} (
   review string,
   review_date TIMESTAMP,
   review_new_id INT
-) USING DELTA;
+) USING DELTA
+partitioned by (trans_timestamp);

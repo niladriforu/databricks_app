@@ -12,11 +12,31 @@ sales_suppliers:
   fqn: samples.bakehouse.sales_suppliers
   column_renames:
     name: supplier_name
+    ingredient: supplier_ingredient
+    continent: supplier_continent
+    city: supplier_city
+    district: supplier_district
+    size: supplier_size
+    longitude: supplier_longitude
+    latitude: supplier_latitude
+    approved: supplier_approved
 
 sales_customers:
   fqn: samples.bakehouse.sales_customers
   column_renames:
-    name: customer_name
+    first_name: customer_first_name
+    last_name: customer_last_name
+    address: customer_address
+    city: customer_city
+    state: customer_state
+    postal_zip_code: customer_postal_zip_code
+    country: customer_country
+    continent: customer_continent
+    email_address: customer_email_address
+    phone_number: customer_phone_number
+    gender: customer_gender
+
+
 
 sales_franchises:
   fqn: samples.bakehouse.sales_franchises

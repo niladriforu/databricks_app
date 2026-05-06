@@ -37,6 +37,7 @@ def main() -> None:
         target["schema"],
         target["table"],
     )
+
     merge_into_delta_table(
         spark,
         mart_df,
@@ -48,6 +49,12 @@ def main() -> None:
 
     fqn = f"{target['catalog']}.{target['schema']}.{target['table']}"
     print(f"MERGE finished successfully into {fqn}")
+
+    # print(f"Preparing to send the same data in Confluent Kafka stream")
+    # if send_to_kafka(mart_df):
+    #     print(f"Data sent to Kafka successfully")
+    # else:
+    #     raise RuntimeError(f"Failed to send data to Kafka")
 
 
 if __name__ == "__main__":

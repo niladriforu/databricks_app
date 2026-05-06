@@ -27,24 +27,47 @@ def ensure_table(spark, ddl_path: str | Path, catalog: str, schema: str, table: 
     return bool(apply_ddl(spark, ddl_path, catalog, schema, table))
 
 
-def apply_ddl(spark, ddl_path: str | Path, catalog: str, schema: str, table: str) -> None:
+def apply_ddl(spark, ddl_path: str | Path, catalog: str, schema: str, table: str) -> bool:
     path = Path(ddl_path)
+    print(f"path: {path}")
     if not path.is_absolute():
         path = repo_root() / path
+
     ddl = path.read_text(encoding="utf-8")
     fqn = target_fqn(catalog, schema, table)
     ddl = ddl.replace("{{TARGET_FQN}}", fqn)
-    for stmt in ddl.split(";"):
-        s = stmt.strip()
-        if s:
-            spark.sql(s)
-        if table_exists(spark, catalog, schema, table):
-            return True
+    for defn in ddl.split(";"):
+        defn = defn.strip()
+        if defn:
+            """
+            Table gets created here.
+            """
+            spark.sql(defn)
+            if table_exists(spark, catalog, schema, table):
+                print(f"Table {table_fqn_plain(catalog, schema, table)} created successfully")
+                return True
+            else:
+                raise ValueError(
+                    f"DDL file {path} did not create table "
+                    f"{table_fqn_plain(catalog, schema, table)}"
+                )
+                return False
         else:
-            raise ValueError(
-                f"DDL file {path} did not create table {table_fqn_plain(catalog, schema, table)}"
-            )
+            print(f"DDL file {path} did not create table {table_fqn_plain(catalog, schema, table)}")
             return False
+    return False
+
+    # for stmt in ddl.split(";"):
+    #     s = stmt.strip()
+    #     if s:
+    #         spark.sql(s)
+    #     if table_exists(spark, catalog, schema, table):
+    #         return True
+    #     else:
+    #         raise ValueError(
+    #             f"DDL file {path} did not create table {table_fqn_plain(catalog, schema, table)}"
+    #         )
+    #         return False
 
 
 def merge_into_delta_table(

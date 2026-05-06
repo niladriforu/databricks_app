@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/bakehouse_recommendation-value.json",
+  "title": "BakehouseRecommendation",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "msg": {
+      "type": "string"
+    }
+  },
+  "required": ["id", "msg"],
+  "additionalProperties": true
+}

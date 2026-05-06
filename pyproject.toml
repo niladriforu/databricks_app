@@ -12,10 +12,22 @@ pyyaml = "^6.0"
 # PyPI has no stable 1.x yet (only 1.0.0a*); >=1.0 fails unless pip install --pre
 great-expectations = ">=0.18.22,<0.19"
 
+[tool.poetry.group.kafka]
+optional = true
+
+[tool.poetry.group.kafka.dependencies]
+# Schema Registry client imports these; not always pulled by confluent-kafka alone.
+confluent-kafka = ">=2.6.0"
+authlib = ">=1.3.0"
+cachetools = ">=5.0.0"
+orjson = ">=3.0.0"
+
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
 pre-commit = "^4.0"
 ruff = ">=0.9.0"
+black = ">=24.0.0"
+isort = ">=5.13.0"
 # Local / IDE runs only — Databricks runtimes already ship PySpark; do not add to bundle deps.
 pyspark = ">=3.5.0"
 
@@ -34,6 +46,15 @@ select = [
 
 [tool.ruff.format]
 quote-style = "double"
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+src_paths = ["src"]
 
 [build-system]
 requires = ["poetry-core>=1.8.0"]

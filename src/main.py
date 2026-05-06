@@ -6,7 +6,7 @@ import yaml
 from pyspark.sql import SparkSession
 
 from expectations_runner import validate_mart_dataframe
-from ingest_data import build_mart_dataframe
+from ingest_data import build_denormalized_dataframe
 from mart_loader import ensure_table, merge_into_delta_table, select_mart_columns
 from paths import repo_root
 
@@ -26,7 +26,8 @@ def main() -> None:
     merge_key = cfg["merge_key"]
     mart_columns: list[str] = cfg["mart_columns"]
 
-    df = build_mart_dataframe()
+    # df = build_mart_dataframe()
+    df = build_denormalized_dataframe()
     mart_df = select_mart_columns(df, mart_columns)
     validate_mart_dataframe(mart_df, paths["expectations"])
 

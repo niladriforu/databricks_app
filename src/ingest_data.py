@@ -48,7 +48,6 @@ def _table_from_ingest_entry(entry: dict[str, Any], *, context: str):
 
 def _core_denormalized_through_suppliers(cfg: dict[str, Any] | None = None):
     """Fact + customer + franchise + supplier (one row per transaction)."""
-    cfg = _load_ingest_config()
     sales_transactions_df = _table_from_ingest_entry(
         cfg["sales_transactions"],
         context="config/ingest.yaml sales_transactions",
@@ -86,6 +85,7 @@ def build_mart_dataframe():
 
 def build_denormalized_dataframe(cfg: dict[str, Any] | None = None):
     """Wide denormalized DataFrame including review tables (may duplicate transactionID)."""
+    cfg = _load_ingest_config()
     denormalized_sales_transactions_df = _core_denormalized_through_suppliers(cfg)
 
     gold_cfg = cfg.get("media_gold_reviews_chunked") or {}

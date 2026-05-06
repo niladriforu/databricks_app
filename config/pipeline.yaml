@@ -1,6 +1,6 @@
 # Target Delta table (Unity Catalog or hive_metastore). Edit for your workspace.
 target:
-  catalog: main
+  catalog: workspace
   schema: default
   table: denormalized_sales_mart
 

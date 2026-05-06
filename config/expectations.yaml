@@ -1,4 +1,4 @@
-# Data quality rules run against the mart DataFrame before MERGE (Great Expectations on Spark).
+# Data quality rules run against the mart DataFrame before MERGE (plain PySpark; serverless-safe).
 # Use exact Spark column names (case-sensitive).
 
 not_null_columns:

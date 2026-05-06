@@ -26,7 +26,7 @@ def _apply_column_renames(df, renames: dict[str, str] | None, *, context: str):
     for old, new in renames.items():
         if old == new:
             continue
-        if old.lower() not in out_df.columns.lower():
+        if old not in out_df.columns:
             """
             It means your column of your table and the column mentioned here are not the same
             which should not happen.

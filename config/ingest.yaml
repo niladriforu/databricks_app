@@ -4,7 +4,7 @@
 sales_transactions:
   fqn: samples.bakehouse.sales_transactions
   column_renames:
-    datetime:trans_timestamp
+    datetime: trans_timestamp
 
 
 

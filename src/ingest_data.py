@@ -40,9 +40,10 @@ def _apply_column_renames(df, renames: dict[str, str] | None, *, context: str):
 
 
 def _table_from_ingest_entry(entry: dict[str, Any], *, context: str):
+    renames = entry.get("column_renames") or {}
     fqn = entry["fqn"]
     df = spark.table(fqn)
-    return _apply_column_renames(df, entry.get("column_renames") or {}, context=context)
+    return _apply_column_renames(df, renames, context=context)
 
 
 def _core_denormalized_through_suppliers(cfg: dict[str, Any] | None = None):

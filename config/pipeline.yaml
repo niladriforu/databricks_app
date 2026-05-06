@@ -21,14 +21,14 @@ mart_columns:
   - cardNumber
   - customer_first_name
   - customer_last_name
+  - customer_email_address
+  - customer_phone_number
   - customer_address
   - customer_city
   - customer_state
-  - customer_postal_zip_code
   - customer_country
   - customer_continent
-  - customer_email_address
-  - customer_phone_number
+  - customer_postal_zip_code
   - customer_gender
   - franchise_name
   - franchise_city
@@ -48,6 +48,13 @@ mart_columns:
   - supplier_longitude
   - supplier_latitude
   - supplier_approved
+  - review
+  - review_date
+  - review_new_id
+  - chunked_review_date
+  - chunked_review_uri
+  - chunked_text
+  - chunked_id
 
 paths:
   ddl: sql/denormalized_sales_mart.ddl.sql

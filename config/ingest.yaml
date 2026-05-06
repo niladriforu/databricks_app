@@ -55,6 +55,7 @@ media_gold_reviews_chunked:
   column_renames:
     review_date: chunked_review_date
     review_uri: chunked_review_uri
+    chunk_id: chunked_id
 
 media_customer_reviews:
   fqn: samples.bakehouse.media_customer_reviews

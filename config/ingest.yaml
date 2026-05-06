@@ -59,4 +59,5 @@ media_gold_reviews_chunked:
 
 media_customer_reviews:
   fqn: samples.bakehouse.media_customer_reviews
-  column_renames: {}
+  column_renames:
+    new_id: review_new_id

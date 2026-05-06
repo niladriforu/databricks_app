@@ -9,8 +9,6 @@ packages = [{ include = "databricks_app", from = "src" }]
 [tool.poetry.dependencies]
 python = "^3.14"
 pyyaml = "^6.0"
-# PyPI has no stable 1.x yet (only 1.0.0a*); >=1.0 fails unless pip install --pre
-great-expectations = ">=0.18.22,<0.19"
 
 [tool.poetry.group.kafka]
 optional = true
@@ -28,8 +26,14 @@ pre-commit = "^4.0"
 ruff = ">=0.9.0"
 black = ">=24.0.0"
 isort = ">=5.13.0"
+# Local / CI functional tests only — not installed on Databricks serverless bundle.
+great-expectations = ">=0.18.22,<0.19"
 # Local / IDE runs only — Databricks runtimes already ship PySpark; do not add to bundle deps.
 pyspark = ">=3.5.0"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 100
